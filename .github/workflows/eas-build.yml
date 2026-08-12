@@ -1,0 +1,43 @@
+name: EAS Build & Submit
+
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: Platform to build
+        type: choice
+        default: all
+        options: [all, ios, android]
+      submit:
+        description: Auto-submit to TestFlight / Play internal track
+        type: boolean
+        default: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - run: npm ci
+
+      - run: npx tsc --noEmit
+
+      - name: Build (and submit)
+        run: |
+          eas build \
+            --platform ${{ inputs.platform }} \
+            --profile production \
+            --non-interactive \
+            --no-wait \
+            ${{ inputs.submit && '--auto-submit' || '' }}
