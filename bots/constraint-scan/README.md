@@ -32,4 +32,8 @@ No private business data lives in this folder. Investor names, amounts, personal
 
 ## Routine details
 
-Recorded when the routine was created; see the bottom of this file.
+- Name: Morning constraint report
+- Trigger id: `trig_01C9gvkan8evDssMDCiqZxwF`
+- Schedule: `0 5 * * *` (UTC), daily
+- Mode: fires into the Claude Code session that built it (session `session_01TYGPWThMBK9xGWKVrXULp4`), because that session holds the Gmail, Google Calendar and Google Drive connectors. Routines created from inside a session cannot carry connector grants into a fresh session on this account, so a fresh-session routine would run blind. Do not archive that session while the routine is in use.
+- If a fresh session per morning is preferred, create the routine from the Routines page in claude.ai, paste `PROMPT.md` as the prompt, tick Gmail, Google Calendar and Google Drive as its connectors, and delete the session-bound one. Nothing else changes.
