@@ -37,3 +37,7 @@ No private business data lives in this folder. Investor names, amounts, personal
 - Schedule: `0 5 * * *` (UTC), daily
 - Mode: fires into the Claude Code session that built it (session `session_01TYGPWThMBK9xGWKVrXULp4`), because that session holds the Gmail, Google Calendar and Google Drive connectors. Routines created from inside a session cannot carry connector grants into a fresh session on this account, so a fresh-session routine would run blind. Do not archive that session while the routine is in use.
 - If a fresh session per morning is preferred, create the routine from the Routines page in claude.ai, paste `PROMPT.md` as the prompt, tick Gmail, Google Calendar and Google Drive as its connectors, and delete the session-bound one. Nothing else changes.
+
+## Run log
+
+- 17 Sep 2026: first report sent at 06:00 UTC (subject "Morning constraint report, Thu 17 Sep 2026: no frozen, priced offer a parent can pay for", key `no-frozen-priced-offer`). Produced by the reference workflow: six sweeps, four judges, merge, one combined refuter for each of the top four hypotheses, synthesis, critic and one revision. The first attempt at the verification stage hit the account's usage limit and was resumed from cache after the limit reset at 04:30 UTC; the daily prompt's smaller fan-out exists to stay well inside that limit. A routine test firing in TEST MODE followed to prove the scheduled path.
